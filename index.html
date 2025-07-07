@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Autocomplete (GitHub Users)</title>
+        <link rel="stylesheet" href="/src/style.css" />
+    </head>
+    <body>
+        <section class="autocomplete" aria-label="GitHub users search">
+            <h1 class="autocomplete__title">Github Users Search Autocomplete</h1>
+            <div class="autocomplete__input-wrapper">
+                <label for="search-input" class="autocomplete__label">Search GitHub users</label>
+                <input
+                    id="search-input"
+                    type="text"
+                    class="autocomplete__input"
+                    placeholder="Type a username"
+                    aria-autocomplete="list"
+                    aria-controls="results-list"
+                    aria-expanded="false"
+                    aria-activedescendant=""
+                    role="combobox"
+                />
+                <span
+                    id="status-message"
+                    role="status"
+                    aria-live="polite"
+                    class="autocomplete__status"
+                >
+                </span>
+                <ul
+                    id="results-list"
+                    class="autocomplete__list hidden"
+                    role="listbox"
+                    aria-label="Search suggestions"
+                >
+                    <!-- li elements with role="option" will be inserted here -->
+                </ul>
+            </div>
+            <pre id="selected-user" class="autocomplete__card hidden" aria-live="polite">
+                <!--Selected user card-->
+            </pre>
+        </section>
+    </body>
+    <script type="module" src="/src/main.js"></script>
+</html>
