@@ -2,6 +2,8 @@ import { state } from "../state.js";
 import { fetchUsers } from "../logic/fetchUsers.js";
 import { updateUI } from "../ui/render.js";
 import { debounce } from "../logic/debounce.js";
+import { ANIMATION } from "../constants.js";
+import { onKeyDown } from "./onKeyDown.js";
 
 export function setupInputHandler() {
     const userNameInput = document.querySelector("#search-input");
@@ -15,10 +17,8 @@ export function setupInputHandler() {
                 state.users = [];
                 updateUI();
             }
-        }, 400)
+        }, ANIMATION.DEBOUNCE_DELAY)
     );
 
     userNameInput.addEventListener("keydown", onKeyDown);
 }
-
-import { onKeyDown } from "./onKeyDown.js";

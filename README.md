@@ -1,89 +1,51 @@
-# GitHub Users Autocomplete
+# 🚀 GitHub Users Autocomplete
 
-Автодополнение для поиска пользователей GitHub с использованием GitHub API.
+**Live demo:** [git-users-autocomplete.vercel.app](https://git-users-autocomplete-prf8di0uf-vladislavmedveds-projects.vercel.app)
 
-## Структура проекта
+## What is this?
+
+A minimal, fast, and responsive autocomplete widget for searching GitHub users. Type a name, get instant suggestions, pick a user — see their profile card. Clean UI, keyboard-friendly, and mobile-ready.
+
+## ✨ Features
+
+- 🔍 Instant GitHub user search (uses GitHub API)
+- ⚡ Smart caching (no duplicate requests)
+- 🎨 Smooth fade-in animations & loading spinner
+- 🧑‍💻 Keyboard navigation & ARIA accessibility
+- 📱 Fully responsive, looks great on any device
+
+## 📁 Project Structure
 
 ```
-git-users-autocomplete/
-├── index.html                 # Главная HTML страница
-├── src/                       # Исходники
-│   ├── main.js                # Точка входа, инициализация
-│   ├── state.js               # Централизованное состояние
-│   ├── style.css              # Стили приложения
-│   ├── ui/
-│   │   ├── render.js          # UI-рендеринг (DOM-обновления)
-│   │   └── aria.js            # Обновление aria-атрибутов
-│   │
-│   ├── logic/
-│   │   ├── fetchUsers.js      # Взаимодействие с GitHub API
-│   │   └── debounce.js        # Утилита
-│   │
-│   └── events/
-│       ├── onInput.js         # Обработчик ввода
-│       ├── onKeyDown.js       # Обработка клавиш
-│       └── onSelect.js        # Выбор юзера
-│
-├── test/                      # Юнит-тесты (если будут)
-│   └── fetchUsers.test.js     # Мок-тест API
-│
-├── package.json               # Скрипты и зависимости
-├── .editorconfig              # Code style
-├── .prettierrc                # Prettier конфигурация
-├── .eslintrc.json             # ESLint конфигурация
-└── README.md                  # Документация по проекту
+src/
+  main.js           # App entry
+  state.js          # App state
+  constants.js      # All strings, keys, templates
+  events/           # Event handlers (input, select, keydown)
+  logic/            # Core logic (fetch, debounce)
+  ui/               # UI rendering & components
+    components/     # Small UI units (list item, card, spinner)
+public/
+  style.css         # Main styles
+index.html          # App shell
 ```
 
-## Функциональность
-
-- Поиск пользователей GitHub по имени
-- Автодополнение с задержкой (debounce)
-- Навигация по клавиатуре (стрелки вверх/вниз, Enter)
-- Отмена предыдущих запросов при новом поиске
-- Полная поддержка ARIA для доступности
-- Адаптивный дизайн
-
-## Запуск
-
-Проект использует Vite для разработки:
+## 🛠️ Getting Started
 
 ```bash
-# Установка зависимостей
-npm install
-
-# Запуск в режиме разработки
-npm run dev
-
-# Сборка для продакшена
-npm run build
-
-# Предпросмотр собранного проекта
-npm run preview
+npm install      # Install dependencies
+npm run dev      # Start local dev server
 ```
 
-## Форматирование кода
-
-Проект настроен с Prettier для автоматического форматирования:
+## 🧪 Testing
 
 ```bash
-# Форматировать все файлы
-npm run format
-
-# Проверить форматирование без изменений
-npm run format:check
+npm test         # Run all tests
 ```
 
-В VSCode настроено автоматическое форматирование при сохранении (4 пробела).
+---
 
-## API
+**That’s it!**
 
-Используется [GitHub Search API](https://docs.github.com/en/rest/search/search#search-users) для поиска пользователей.
-
-## Технологии
-
-- Vite (сборщик и dev-сервер)
-- Vanilla JavaScript (ES6+)
-- GitHub REST API
-- CSS3 с BEM методологией
-- HTML5 с ARIA атрибутами
-- Prettier (форматирование кода)
+- Clean code, no bloat, easy to read and extend.
+- [Live demo here](https://git-users-autocomplete-prf8di0uf-vladislavmedveds-projects.vercel.app)

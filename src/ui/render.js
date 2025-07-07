@@ -1,6 +1,8 @@
 import { state } from "../state.js";
 import { onSelect } from "../events/onSelect.js";
 import { updateAriaAttributes } from "./aria.js";
+import { renderListItem, renderCard, createSpinner } from "./components/index.js";
+import { MESSAGES, CSS_CLASSES, ID_TEMPLATES } from "../constants.js";
 
 export function updateUI() {
     const list = document.getElementById("results-list");
@@ -8,43 +10,39 @@ export function updateUI() {
     const card = document.getElementById("selected-user");
 
     // Loading/Error
-    status.classList.toggle("hidden", !state.loading && !state.error);
-    status.textContent = state.loading
-        ? "Loading..."
-        : state.error ||
-          (state.users.length === 0 && state.query.length > 1 ? "No users found." : "");
+    status.classList.toggle(CSS_CLASSES.HIDDEN, !state.loading && !state.error);
 
-    // Update list
+    if (state.loading) {
+        status.innerHTML = "";
+        status.appendChild(createSpinner());
+        status.appendChild(document.createTextNode(` ${MESSAGES.LOADING}`));
+    } else {
+        status.textContent = state.error ||
+            (state.users.length === 0 && state.query.length > 1 ? MESSAGES.NO_MATCHES_FOUND : "");
+    }
+
+    // Update list with fade-in animation
     list.innerHTML = "";
-    list.classList.toggle("hidden", state.users.length === 0 || state.error);
+    list.classList.toggle(CSS_CLASSES.HIDDEN, state.users.length === 0 || state.error);
 
-    state.users.forEach((user, i) => {
-        const li = document.createElement("li");
-        li.id = `option-${i}`;
-        li.setAttribute("role", "option");
-        li.setAttribute("aria-selected", state.highlightedIndex === i ? "true" : "false");
-        li.textContent = user.login;
-        li.addEventListener("click", () => onSelect(user));
-        list.appendChild(li);
-    });
+    if (state.users.length > 0) {
+        state.users.forEach((user, i) => {
+            const li = renderListItem(user, i, state.highlightedIndex);
+            list.appendChild(li);
+        });
+
+        // Add fade-in animation
+        list.classList.add(CSS_CLASSES.FADE_IN);
+    }
 
     // Update ARIA attributes
     updateAriaAttributes();
 
     // Card
     if (state.selectedUser) {
-        const { avatar_url, login, html_url } = state.selectedUser;
-        card.classList.remove("hidden");
-        card.innerHTML = `
-			<img src="${avatar_url}" alt="${login}'s avatar">
-			<div class="autocomplete__card-content">
-				<strong>${login}</strong>
-				<a href="${html_url}" target="_blank" rel="noopener noreferrer">
-				GitHub Profile
-				</a>
-			</div>
-		`;
+        card.classList.remove(CSS_CLASSES.HIDDEN);
+        card.innerHTML = renderCard(state.selectedUser);
     } else {
-        card.classList.add("hidden");
+        card.classList.add(CSS_CLASSES.HIDDEN);
     }
 }
